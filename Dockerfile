@@ -2,15 +2,13 @@
 #
 # VERSION 18.0.1
 
-FROM alpine:3.7
+#FROM alpine:3.7
+FROM alpine:latest
 
 # Build arguments.
 ARG VCS_REF
 ARG BUILD_DATE
 ARG MESA_DEMOS="false"
-
-RUN apk update
-RUN apk upgrade
 
 # Labels / Metadata.
 LABEL maintainer="James Brink, brink.james@gmail.com" \
