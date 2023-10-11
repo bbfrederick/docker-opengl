@@ -9,6 +9,9 @@ ARG VCS_REF
 ARG BUILD_DATE
 ARG MESA_DEMOS="false"
 
+RUN apk update
+RUN apk upgrade
+
 # Labels / Metadata.
 LABEL maintainer="James Brink, brink.james@gmail.com" \
       decription="Mesa3D Software Drivers" \
