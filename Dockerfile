@@ -2,7 +2,7 @@
 #
 # VERSION 18.0.1
 
-FROM alpine:3.9
+FROM alpine:3.7
 
 # Build arguments.
 ARG VCS_REF
@@ -27,10 +27,15 @@ RUN set -xe; \
 
 COPY ./checkpoint1 /tmp
 
-RUN set -xe; \
-    mkdir -p /var/tmp/build; \
-    cd /var/tmp/build; \
-    wget "https://mesa.freedesktop.org/archive/mesa-18.0.1.tar.gz"; \
+#RUN set -xe; \
+#    mkdir -p /var/tmp/build; \
+#    cd /var/tmp/build; \
+#    wget "https://mesa.freedesktop.org/archive/mesa-18.0.1.tar.gz"; \
+#    tar xfv mesa-18.0.1.tar.gz; \
+#    rm mesa-18.0.1.tar.gz
+RUN mkdir -p /var/tmp/build
+COPY ./mesa-18.0.1.tar.gz /var/tmp/build
+RUN cd /var/tmp/build; \
     tar xfv mesa-18.0.1.tar.gz; \
     rm mesa-18.0.1.tar.gz
 
@@ -43,7 +48,7 @@ COPY ./checkpoint3 /tmp
 
 RUN set -xe; \
     cd /var/tmp/build/mesa-18.0.1; \
-    ./configure --enable-glx=gallium-xlib --with-gallium-drivers=swrast,swr --disable-dri --disable-gbm --disable-egl --enable-gallium-osmesa --prefix=/usr/local; \
+    ./configure --enable-llvm --enable-glx=gallium-xlib --with-gallium-drivers=swrast,swr --disable-dri --disable-gbm --disable-egl --enable-gallium-osmesa --prefix=/usr/local; \
     make; \
     make install; \
     cd .. ; \
